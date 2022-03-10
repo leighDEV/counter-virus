@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "464b26c8-4f5a-4d41-9a08-452db1fd0187": {
+      "ProjectGuid": "464b26c8-4f5a-4d41-9a08-452db1fd0187",
+      "DisplayName": "counter-virus",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
