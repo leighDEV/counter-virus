@@ -43,6 +43,8 @@ namespace counter_virus
             else
             {
                 gameOver = true;
+                player.Image = Properties.Resources.player_dead;
+                gameTimer.Stop();
             }
 
             txtAmmo.Text = "Ammo: " + ammo;
@@ -66,6 +68,19 @@ namespace counter_virus
             if (goDown == true && player.Top + player.Height < this.ClientSize.Height)
             {
                 player.Top += speed;
+            }
+
+            foreach (Control x in this.Controls)
+            {
+                if (x is PictureBox && (string)x.Tag == "ammo")
+                {
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        this.Controls.Remove(x);
+                        ((PictureBox)x).Dispose();
+                        ammo += 5;
+                    }
+                }
             }
         }
 
@@ -122,20 +137,51 @@ namespace counter_virus
                 goDown = false;
             }
 
-            if (e.KeyCode == Keys.Space)
+            if (e.KeyCode == Keys.Space && ammo > 0)
             {
+                ammo--;
                 ShootBullet(facing);
+
+                if (ammo < 1)
+                {
+                    DropAmmo(); 
+                }
             }
         }
 
         private void ShootBullet(string direction)
         {
-
+            Bullet shootBullet = new Bullet();
+            shootBullet.direction = direction;
+            shootBullet.bulletLeft = player.Left + (player.Width / 2);
+            shootBullet.bulletTop = player.Top + (player.Height / 2);
+            shootBullet.MakeBullet(this);
         }
 
         private void MakeVirus()
         {
+            PictureBox virus = new PictureBox();
+            virus.Tag = "virus";
+            virus.Image = Properties.Resources.virus;
+            virus.Left = random.Next(0, 900);
+            virus.Top = random.Next(0, 800);
+            virus.SizeMode = PictureBoxSizeMode.StretchImage;
+            virusList.Add(virus);
+            this.Controls.Add(virus);
+            player.BringToFront();
+        }
 
+        private void DropAmmo()
+        {
+            PictureBox ammo = new PictureBox();
+            ammo.Tag = "ammo";
+            ammo.Image = Properties.Resources.essentials_medicine;
+            ammo.SizeMode = PictureBoxSizeMode.StretchImage;
+            ammo.Left = random.Next(10, this.ClientSize.Width - ammo.Width);
+            ammo.Top = random.Next(10, this.ClientSize.Height - ammo.Height);
+            this.Controls.Add(ammo);
+            ammo.BringToFront();
+            player.BringToFront();
         }
 
         private void RestartGame()

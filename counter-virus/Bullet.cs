@@ -55,6 +55,15 @@ namespace counter_virus
             {
                 bullet.Top += speed;
             }
+
+            if (bullet.Left < 10 || bullet.Left > 860 || bullet.Top < 10 || bullet.Top > 600)
+            {
+                bulletTimer.Stop();
+                bulletTimer.Dispose();
+                bullet.Dispose();
+                bulletTimer = null;
+                bullet = null;
+            }
         }
     }
 }
