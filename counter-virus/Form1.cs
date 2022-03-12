@@ -45,6 +45,8 @@ namespace counter_virus
             {
                 gameOver = true;
                 player.Image = Properties.Resources.player_dead;
+                player.SizeMode = PictureBoxSizeMode.StretchImage;
+                player.Size = new Size(110, 92);
                 gameTimer.Stop();
             }
 
@@ -71,6 +73,7 @@ namespace counter_virus
                 player.Top += speed;
             }
 
+            // pag dumikit ang player sa ammo
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
@@ -83,23 +86,55 @@ namespace counter_virus
                     }
                 }
 
+                // para lumapit ang virus sa player
                 if (x is PictureBox && (string)x.Tag == "virus")
                 {
-                    if (x.Left > player.Left && x.Top > player.Top)
+                    // kapag dumikit sa virus, bawas health
+                    if (player.Bounds.IntersectsWith(x.Bounds))
+                    {
+                        playerHealth -= 1;
+                    }
+
+                    if (x.Left > player.Left)
                     {
                         x.Left -= virusSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.virus;
+                    }
+
+                    if (x.Top < player.Top)
+                    {
+                        x.Top += virusSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.virus;
+                    }
+
+                    if (x.Left < player.Left)
+                    {
+                        x.Left += virusSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.virus;
+                    }
+
+                    if (x.Top > player.Top)
+                    {
                         x.Top -= virusSpeed;
                         ((PictureBox)x).Image = Properties.Resources.virus;
                     }
                 }
-
-                if (x is PictureBox && (string)x.Tag == "virus")
+                
+                foreach (Control j in this.Controls)
                 {
-                    if (x.Left < player.Left && x.Top < player.Top)
+                    if (x is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "virus")
                     {
-                        x.Left += virusSpeed;
-                        x.Top += virusSpeed;
-                        ((PictureBox)x).Image = Properties.Resources.virus;
+                        // kapag dumikit ang bullet sa virus
+                        if (x.Bounds.IntersectsWith(j.Bounds))
+                        {
+                            score++;
+                            this.Controls.Remove(j); // kapag dumikit, remove bullet
+                            ((PictureBox)j).Dispose();
+                            this.Controls.Remove(x); // remove virus
+                            ((PictureBox)x).Dispose();
+                            virusList.Remove((PictureBox)x);
+                            MakeVirus(); // to add more virus after defeating one
+                        }
                     }
                 }
             }
@@ -107,6 +142,11 @@ namespace counter_virus
 
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
+            if (gameOver == true)
+            {
+                return;
+            }
+
             if (e.KeyCode == Keys.A)
             {
                 goLeft = true;
@@ -153,12 +193,12 @@ namespace counter_virus
                 goUp = false;
             }
 
-            if (e.KeyCode == Keys.S)
+            if (e.KeyCode == Keys.S)  
             {
                 goDown = false;
             }
 
-            if (e.KeyCode == Keys.Space && ammo > 0)
+            if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
                 ShootBullet(facing);
@@ -167,6 +207,11 @@ namespace counter_virus
                 {
                     DropAmmo(); 
                 }
+            }
+
+            if (e.KeyCode == Keys.Enter && gameOver == true)
+            {
+                RestartGame();
             }
         }
 
@@ -228,10 +273,12 @@ namespace counter_virus
             goDown = false;
             goRight = false;
             goLeft = false;
+            gameOver = false;
 
             playerHealth = 100;
             score = 0;
             ammo = 10;
+            player.Size = new Size(95, 77);
 
             gameTimer.Start();
         }
