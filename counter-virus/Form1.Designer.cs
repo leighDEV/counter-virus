@@ -84,9 +84,9 @@
             // player
             // 
             this.player.Image = global::counter_virus.Properties.Resources.player_up;
-            this.player.Location = new System.Drawing.Point(18, 42);
+            this.player.Location = new System.Drawing.Point(386, 296);
             this.player.Name = "player";
-            this.player.Size = new System.Drawing.Size(131, 122);
+            this.player.Size = new System.Drawing.Size(95, 77);
             this.player.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.player.TabIndex = 2;
             this.player.TabStop = false;

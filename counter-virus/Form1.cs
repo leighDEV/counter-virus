@@ -26,6 +26,7 @@ namespace counter_virus
         public Form1()
         {
             InitializeComponent();
+            RestartGame();
         }
 
         private void txtScore_Click(object sender, EventArgs e)
@@ -79,6 +80,26 @@ namespace counter_virus
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
                         ammo += 5;
+                    }
+                }
+
+                if (x is PictureBox && (string)x.Tag == "virus")
+                {
+                    if (x.Left > player.Left && x.Top > player.Top)
+                    {
+                        x.Left -= virusSpeed;
+                        x.Top -= virusSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.virus;
+                    }
+                }
+
+                if (x is PictureBox && (string)x.Tag == "virus")
+                {
+                    if (x.Left < player.Left && x.Top < player.Top)
+                    {
+                        x.Left += virusSpeed;
+                        x.Top += virusSpeed;
+                        ((PictureBox)x).Image = Properties.Resources.virus;
                     }
                 }
             }
@@ -163,6 +184,8 @@ namespace counter_virus
             PictureBox virus = new PictureBox();
             virus.Tag = "virus";
             virus.Image = Properties.Resources.virus;
+            virus.SizeMode = PictureBoxSizeMode.StretchImage;
+            virus.Size = new Size(60, 60);
             virus.Left = random.Next(0, 900);
             virus.Top = random.Next(0, 800);
             virus.SizeMode = PictureBoxSizeMode.StretchImage;
@@ -175,10 +198,11 @@ namespace counter_virus
         {
             PictureBox ammo = new PictureBox();
             ammo.Tag = "ammo";
-            ammo.Image = Properties.Resources.essentials_medicine;
+            ammo.Image = Properties.Resources.essentials_food;
             ammo.SizeMode = PictureBoxSizeMode.StretchImage;
+            ammo.Size = new Size(60, 45);
             ammo.Left = random.Next(10, this.ClientSize.Width - ammo.Width);
-            ammo.Top = random.Next(10, this.ClientSize.Height - ammo.Height);
+            ammo.Top = random.Next(60, this.ClientSize.Height - ammo.Height);
             this.Controls.Add(ammo);
             ammo.BringToFront();
             player.BringToFront();
@@ -186,7 +210,30 @@ namespace counter_virus
 
         private void RestartGame()
         {
+            player.Image = Properties.Resources.player_up;
 
+            foreach (PictureBox vl in virusList)
+            {
+                this.Controls.Remove(vl);
+            }
+
+            virusList.Clear();
+
+            for (int vl = 0; vl < 3; vl++)
+            {
+                MakeVirus();
+            }
+
+            goUp = false;
+            goDown = false;
+            goRight = false;
+            goLeft = false;
+
+            playerHealth = 100;
+            score = 0;
+            ammo = 10;
+
+            gameTimer.Start();
         }
     }
 }
