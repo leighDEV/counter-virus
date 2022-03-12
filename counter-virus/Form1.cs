@@ -73,7 +73,6 @@ namespace counter_virus
                 player.Top += speed;
             }
 
-            // pag dumikit ang player sa ammo
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
@@ -86,10 +85,8 @@ namespace counter_virus
                     }
                 }
 
-                // para lumapit ang virus sa player
                 if (x is PictureBox && (string)x.Tag == "virus")
                 {
-                    // kapag dumikit sa virus, bawas health
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
                         playerHealth -= 1;
@@ -124,16 +121,15 @@ namespace counter_virus
                 {
                     if (x is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "virus")
                     {
-                        // kapag dumikit ang bullet sa virus
                         if (x.Bounds.IntersectsWith(j.Bounds))
                         {
                             score++;
-                            this.Controls.Remove(j); // kapag dumikit, remove bullet
+                            this.Controls.Remove(j);
                             ((PictureBox)j).Dispose();
-                            this.Controls.Remove(x); // remove virus
+                            this.Controls.Remove(x);
                             ((PictureBox)x).Dispose();
                             virusList.Remove((PictureBox)x);
-                            MakeVirus(); // to add more virus after defeating one
+                            MakeVirus();
                         }
                     }
                 }
