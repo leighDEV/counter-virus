@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace counter_virus
 {
     public partial class Form1 : Form
     {
+        // variable
         bool goUp, goDown, goLeft, goRight, gameOver;
         string facing = "up";
         int playerHealth = 100;
@@ -29,6 +25,7 @@ namespace counter_virus
             RestartGame();
         }
 
+        // i misclicked the one from design; can't delete this since it will error
         private void txtScore_Click(object sender, EventArgs e)
         {
 
@@ -36,23 +33,27 @@ namespace counter_virus
 
         private void MainTimer(object sender, EventArgs e)
         {
+            // this is for the player's health
             if (playerHealth > 1)
             {
-                healthBar.Value = playerHealth;
+                healthBar.Value = playerHealth; // label of health
             }
 
+            // this is when the player hits 0 health
             else
             {
                 gameOver = true;
-                player.Image = Properties.Resources.player_dead;
+                player.Image = Properties.Resources.player_dead; // will display dead player image
                 player.SizeMode = PictureBoxSizeMode.StretchImage;
                 player.Size = new Size(110, 92);
                 gameTimer.Stop();
             }
 
+            // the label above game (ammmo and kills)
             txtAmmo.Text = "Ammo: " + ammo;
             txtScore.Text = "Kills: " + score;
 
+            // speed of player and also the boundaries of where it can go
             if (goLeft == true && player.Left > 0)
             {
                 player.Left -= speed;
@@ -67,12 +68,13 @@ namespace counter_virus
             {
                 player.Top -= speed;
             }
-            
+
             if (goDown == true && player.Top + player.Height < this.ClientSize.Height)
             {
                 player.Top += speed;
             }
 
+            // player getting the ammo
             foreach (Control x in this.Controls)
             {
                 if (x is PictureBox && (string)x.Tag == "ammo")
@@ -81,17 +83,19 @@ namespace counter_virus
                     {
                         this.Controls.Remove(x);
                         ((PictureBox)x).Dispose();
-                        ammo += 5;
+                        ammo += 5; // +5 everytime they intersect
                     }
                 }
 
+                // this is where the virus will follow the player
                 if (x is PictureBox && (string)x.Tag == "virus")
                 {
                     if (player.Bounds.IntersectsWith(x.Bounds))
                     {
-                        playerHealth -= 1;
+                        playerHealth -= 1; // -1 everytime the virus touch the player
                     }
 
+                    // virus following the player
                     if (x.Left > player.Left)
                     {
                         x.Left -= virusSpeed;
@@ -116,7 +120,8 @@ namespace counter_virus
                         ((PictureBox)x).Image = Properties.Resources.virus;
                     }
                 }
-                
+
+                // this is where the bullet touch the virus
                 foreach (Control j in this.Controls)
                 {
                     if (x is PictureBox && (string)j.Tag == "bullet" && x is PictureBox && (string)x.Tag == "virus")
@@ -136,11 +141,12 @@ namespace counter_virus
             }
         }
 
+        // when the player is pressing the certain keys
         private void KeyIsDown(object sender, KeyEventArgs e)
         {
             if (gameOver == true)
             {
-                return;
+                return; // so the key won't function when it's gameover
             }
 
             if (e.KeyCode == Keys.A)
@@ -172,6 +178,7 @@ namespace counter_virus
             }
         }
 
+        // when the certain keys are not pressed down
         private void KeyIsUp(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.A)
@@ -189,11 +196,12 @@ namespace counter_virus
                 goUp = false;
             }
 
-            if (e.KeyCode == Keys.S)  
+            if (e.KeyCode == Keys.S)
             {
                 goDown = false;
             }
 
+            // the gameover here means can't function the space bar when its gameover
             if (e.KeyCode == Keys.Space && ammo > 0 && gameOver == false)
             {
                 ammo--;
@@ -201,16 +209,18 @@ namespace counter_virus
 
                 if (ammo < 1)
                 {
-                    DropAmmo(); 
+                    DropAmmo();
                 }
             }
 
+            // pressing enter means restarting game when its gameover
             if (e.KeyCode == Keys.Enter && gameOver == true)
             {
                 RestartGame();
             }
         }
 
+        // method for shooring bullet
         private void ShootBullet(string direction)
         {
             Bullet shootBullet = new Bullet();
@@ -220,6 +230,7 @@ namespace counter_virus
             shootBullet.MakeBullet(this);
         }
 
+        // method for making virus
         private void MakeVirus()
         {
             PictureBox virus = new PictureBox();
@@ -235,6 +246,7 @@ namespace counter_virus
             player.BringToFront();
         }
 
+        // method for dropping ammo
         private void DropAmmo()
         {
             PictureBox ammo = new PictureBox();
@@ -249,10 +261,12 @@ namespace counter_virus
             player.BringToFront();
         }
 
+        // emthod for restarting game
         private void RestartGame()
         {
-            player.Image = Properties.Resources.player_up;
-
+            player.Image = Properties.Resources.player_up; // default position of player
+            
+            // will turn back to its default settings
             foreach (PictureBox vl in virusList)
             {
                 this.Controls.Remove(vl);
@@ -274,7 +288,7 @@ namespace counter_virus
             playerHealth = 100;
             score = 0;
             ammo = 10;
-            player.Size = new Size(95, 77);
+            player.Size = new Size(95, 77); // so the player size wont copy the player_dead's size
 
             gameTimer.Start();
         }

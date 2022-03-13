@@ -10,6 +10,7 @@ namespace counter_virus
 {
     internal class Bullet
     {
+        // variables
         public string direction;
         public int bulletLeft;
         public int bulletTop;
@@ -18,6 +19,7 @@ namespace counter_virus
         private PictureBox bullet = new PictureBox();
         private Timer bulletTimer = new Timer();
 
+        // generating bullets
         public void MakeBullet(Form form)
         {
             bullet.BackColor = Color.Gold;
@@ -34,6 +36,7 @@ namespace counter_virus
             bulletTimer.Start();
         }
 
+        // this is for direction of the bullets
         private void BulletTimerEvent(object sender, EventArgs e)
         {
             if (direction == "left")
@@ -56,6 +59,7 @@ namespace counter_virus
                 bullet.Top += speed;
             }
 
+            // this is the boundaries of bullets
             if (bullet.Left < 10 || bullet.Left > 860 || bullet.Top < 10 || bullet.Top > 600)
             {
                 bulletTimer.Stop();
