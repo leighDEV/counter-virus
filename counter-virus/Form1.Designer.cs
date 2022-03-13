@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.txtAmmo = new System.Windows.Forms.Label();
             this.txtScore = new System.Windows.Forms.Label();
             this.txtHealth = new System.Windows.Forms.Label();
@@ -108,6 +109,7 @@
             this.Controls.Add(this.txtHealth);
             this.Controls.Add(this.txtScore);
             this.Controls.Add(this.txtAmmo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Form1";
             this.Text = "Counter Virus";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyIsDown);
