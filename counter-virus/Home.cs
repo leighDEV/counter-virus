@@ -26,13 +26,14 @@ namespace counter_virus
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            
+            Help helpForm = new Help();
+            helpForm.Show();
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-            About about = new About();
-            about.Show();
+            About aboutForm = new About();
+            aboutForm.Show();
         }
     }
 }
