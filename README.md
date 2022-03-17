@@ -15,7 +15,7 @@ A simple 2D shooting game inspired from Covid-19 Pandemic using C# Windows Forms
 <br>
 <br>
 ## About form
-![image](https://user-images.githubusercontent.com/100475303/158833839-1b79aa9f-ea3b-4eeb-a15a-364c26980380.png)
+![image](https://user-images.githubusercontent.com/100475303/158851941-69bd6b75-ef18-4bc6-9010-67052cf4d416.png)
 <br>
 <br>
 ### Still under a lot of improvement.
