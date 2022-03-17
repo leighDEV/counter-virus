@@ -37,6 +37,7 @@ namespace counter_virus
             if (playerHealth > 1)
             {
                 healthBar.Value = playerHealth; // label of health
+                healthBar.ForeColor = Color.Red;
             }
 
             // this is when the player hits 0 health
@@ -47,6 +48,8 @@ namespace counter_virus
                 player.SizeMode = PictureBoxSizeMode.StretchImage;
                 player.Size = new Size(110, 92);
                 gameTimer.Stop();
+                GameOver gameoverPage = new GameOver();
+                gameoverPage.Show();
             }
 
             // the label above game (ammmo and kills)
