@@ -48,8 +48,6 @@ namespace counter_virus
                 player.SizeMode = PictureBoxSizeMode.StretchImage;
                 player.Size = new Size(110, 92);
                 gameTimer.Stop();
-                GameOver gameoverPage = new GameOver();
-                gameoverPage.Show();
             }
 
             // the label above game (ammmo and kills)

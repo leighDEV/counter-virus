@@ -49,7 +49,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackgroundImage = global::counter_virus.Properties.Resources.help;
+            this.BackgroundImage = global::counter_virus.Properties.Resources.help2;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(740, 533);
             this.Controls.Add(this.btnHelpBack);

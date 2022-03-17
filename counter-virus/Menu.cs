@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace counter_virus
 {
-    public partial class Home : Form
+    public partial class Menu : Form
     {
-        public Home()
+        public Menu()
         {
             InitializeComponent();
         }
@@ -34,6 +34,11 @@ namespace counter_virus
         {
             About aboutForm = new About();
             aboutForm.Show();
+        }
+
+        private void btnExit_Click(object sender, EventArgs e)
+        {
+            Application.Exit();
         }
     }
 }
