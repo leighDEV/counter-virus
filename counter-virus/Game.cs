@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace counter_virus
 {
-    public partial class Form1 : Form
+    public partial class Game : Form
     {
         // variable
         bool goUp, goDown, goLeft, goRight, gameOver;
@@ -19,7 +19,7 @@ namespace counter_virus
 
         List<PictureBox> virusList = new List<PictureBox>();
 
-        public Form1()
+        public Game()
         {
             InitializeComponent();
             RestartGame();

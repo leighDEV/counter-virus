@@ -19,19 +19,20 @@ namespace counter_virus
 
         private void btnPlay_Click(object sender, EventArgs e)
         {
-            Form1 game = new Form1();
+            Game game = new Game();
             game.Show();
             this.Hide();
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void btnAbout_Click(object sender, EventArgs e)
         {
-
+            About about = new About();
+            about.Show();
         }
     }
 }
