@@ -34,7 +34,7 @@ namespace counter_virus
         private void MainTimer(object sender, EventArgs e)
         {
             // this is for the player's health
-            if (playerHealth > 1)
+            if (playerHealth >= 0)
             {
                 healthBar.Value = playerHealth; // label of health
                 healthBar.ForeColor = Color.Red;

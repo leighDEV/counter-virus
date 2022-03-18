@@ -21,7 +21,6 @@ namespace counter_virus
         {
             Game game = new Game();
             game.Show();
-            this.Hide();
         }
 
         private void btnHelp_Click(object sender, EventArgs e)
