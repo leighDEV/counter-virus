@@ -67,7 +67,7 @@
             // 
             this.healthBar.Location = new System.Drawing.Point(731, 15);
             this.healthBar.Name = "healthBar";
-            this.healthBar.Size = new System.Drawing.Size(172, 24);
+            this.healthBar.Size = new System.Drawing.Size(165, 24);
             this.healthBar.TabIndex = 1;
             this.healthBar.Value = 100;
             // 
